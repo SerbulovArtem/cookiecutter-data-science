@@ -365,5 +365,35 @@
                 } 
             }
         ]
+    },
+    {
+        "field": "devcontainer",
+        "help": {
+            "description": "Whether to include a `.devcontainer` folder for VS Code Dev Containers / GitHub Codespaces.",
+            "more_information": "[Docs](https://containers.dev/)"
+        },
+        "choices": [
+            {
+                "choice": "none",
+                "help": {
+                    "description": "No devcontainer configuration.",
+                    "more_information": ""
+                }
+            },
+            {
+                "choice": "light",
+                "help": {
+                    "description": "Lightweight devcontainer using the official Python slim image. Good for CPU-only projects.",
+                    "more_information": ""
+                }
+            },
+            {
+                "choice": "heavy",
+                "help": {
+                    "description": "GPU-enabled devcontainer using a PyTorch/CUDA base image (runpod/pytorch). Adds '--gpus=all' and C++/CUDA VS Code extensions.",
+                    "more_information": "[runpod/pytorch](https://hub.docker.com/r/runpod/pytorch)"
+                }
+            }
+        ]
     }
 ]

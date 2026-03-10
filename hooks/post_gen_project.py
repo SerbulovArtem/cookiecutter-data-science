@@ -39,6 +39,7 @@ Path("setup.cfg").unlink()
 # {% elif cookiecutter.linting_and_formatting == "flake8+black+isort" %}
 packages_to_install += flake8_black_isort
 # {% endif %}
+packages_to_install += ["pre-commit"]
 # track packages that are not available through conda
 pip_only_packages = [
     "awscli",
@@ -81,6 +82,23 @@ for obj in docs_subpath.iterdir():
 for docs_template in docs_path.iterdir():
     if docs_template.is_dir() and not docs_template.name == "docs":
         shutil.rmtree(docs_template)
+
+# Handle devcontainer
+devcontainer_path = Path(".devcontainer")
+
+# {% if cookiecutter.devcontainer == "none" %}
+shutil.rmtree(devcontainer_path)
+
+# {% else %}
+devcontainer_subpath = devcontainer_path / "{{ cookiecutter.devcontainer }}"
+for obj in devcontainer_subpath.iterdir():
+    shutil.move(str(obj), str(devcontainer_path))
+
+# Remove all remaining devcontainer sub-templates
+for devcontainer_template in devcontainer_path.iterdir():
+    if devcontainer_template.is_dir():
+        shutil.rmtree(devcontainer_template)
+# {% endif %}
 
 #
 #  POST-GENERATION FUNCTIONS
