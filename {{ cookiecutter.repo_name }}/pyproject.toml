@@ -38,9 +38,25 @@ src = ["{{ cookiecutter.module_name }}"]
 include = ["pyproject.toml", "{{ cookiecutter.module_name }}/**/*.py"]
 
 [tool.ruff.lint]
-extend-select = ["I"]  # Add import sorting
+select = ["E", "W", "F", "I", "B"]
+
+[tool.ruff.format]
+quote-style = "double"
 
 [tool.ruff.lint.isort]
 known-first-party = ["{{ cookiecutter.module_name }}"]
 force-sort-within-sections = true
+{% endif %}
+{% if cookiecutter.testing_framework == 'pytest' %}
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+norecursedirs = [
+  ".git",
+  ".venv",
+  "data",
+  "docs",
+  "models",
+  "notebooks",
+  "reports",
+]
 {% endif %}
